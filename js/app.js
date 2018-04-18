@@ -172,19 +172,19 @@ function initMap() {
     hideMarkers(markers);
   });
 
-  /* No use case at the moment
   document.getElementById('toggle-drawing').addEventListener('click', function() {
     toggleDrawing(drawingManager);
   });
-  */
 
   document.getElementById('zoom-to-area').addEventListener('click', function() {
     zoomToArea();
   });
 
+  /* Replaced by ViewModel
   document.getElementById('search-within-time').addEventListener('click', function() {
     searchWithinTime();
   });
+  */
 
   // Listen for the event fired when the user selects a prediction from the
   // picklist and retrieve more details for that place.
@@ -196,7 +196,6 @@ function initMap() {
   // "go" more details for that place.
   document.getElementById('go-places').addEventListener('click', textSearchPlaces);
 
-  /* No use case for polygon drawing at this point  
   // Add an event listener so that the polygon is captured,  call the
   // searchWithinPolygon function. This will show the markers in the polygon,
   // and hide any outside of it.
@@ -219,7 +218,7 @@ function initMap() {
     polygon.getPath().addListener('insert_at', searchWithinPolygon);
   });
 }
-*/
+
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
 // one infowindow which will open at the marker that is clicked, and populate based
@@ -299,7 +298,6 @@ function makeMarkerIcon(markerColor) {
   return markerImage;
 }
 
-/* No use case for drawing or polygons at the moment.
 // This shows and hides (respectively) the drawing options.
 function toggleDrawing(drawingManager) {
   if (drawingManager.map) {
@@ -325,7 +323,6 @@ function searchWithinPolygon() {
     }
   }
 }
-*/
 
 // This function takes the input value in the find nearby area text input
 // locates it, and then zooms into that area. This is so that the user can
@@ -564,44 +561,44 @@ function createMarkersForPlaces(places) {
 // executed when a marker is selected, indicating the user wants more
 // details about that place.
 function getPlacesDetails(marker, infowindow) {
-var service = new google.maps.places.PlacesService(map);
-service.getDetails({
-  placeId: marker.id
-}, function(place, status) {
-  if (status === google.maps.places.PlacesServiceStatus.OK) {
-    // Set the marker property on this infowindow so it isn't created again.
-    infowindow.marker = marker;
-    var innerHTML = '<div>';
-    if (place.name) {
-      innerHTML += '<strong>' + place.name + '</strong>';
+  var service = new google.maps.places.PlacesService(map);
+  service.getDetails({
+    placeId: marker.id
+  }, function(place, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      // Set the marker property on this infowindow so it isn't created again.
+      infowindow.marker = marker;
+      var innerHTML = '<div>';
+      if (place.name) {
+        innerHTML += '<strong>' + place.name + '</strong>';
+      }
+      if (place.formatted_address) {
+        innerHTML += '<br>' + place.formatted_address;
+      }
+      if (place.formatted_phone_number) {
+        innerHTML += '<br>' + place.formatted_phone_number;
+      }
+      if (place.opening_hours) {
+        innerHTML += '<br><br><strong>Hours:</strong><br>' +
+            place.opening_hours.weekday_text[0] + '<br>' +
+            place.opening_hours.weekday_text[1] + '<br>' +
+            place.opening_hours.weekday_text[2] + '<br>' +
+            place.opening_hours.weekday_text[3] + '<br>' +
+            place.opening_hours.weekday_text[4] + '<br>' +
+            place.opening_hours.weekday_text[5] + '<br>' +
+            place.opening_hours.weekday_text[6];
+      }
+      if (place.photos) {
+        innerHTML += '<br><br><img src="' + place.photos[0].getUrl(
+            {maxHeight: 100, maxWidth: 200}) + '">';
+      }
+      innerHTML += '</div>';
+      infowindow.setContent(innerHTML);
+      infowindow.open(map, marker);
+      // Make sure the marker property is cleared if the infowindow is closed.
+      infowindow.addListener('closeclick', function() {
+        infowindow.marker = null;
+      });
     }
-    if (place.formatted_address) {
-      innerHTML += '<br>' + place.formatted_address;
-    }
-    if (place.formatted_phone_number) {
-      innerHTML += '<br>' + place.formatted_phone_number;
-    }
-    if (place.opening_hours) {
-      innerHTML += '<br><br><strong>Hours:</strong><br>' +
-          place.opening_hours.weekday_text[0] + '<br>' +
-          place.opening_hours.weekday_text[1] + '<br>' +
-          place.opening_hours.weekday_text[2] + '<br>' +
-          place.opening_hours.weekday_text[3] + '<br>' +
-          place.opening_hours.weekday_text[4] + '<br>' +
-          place.opening_hours.weekday_text[5] + '<br>' +
-          place.opening_hours.weekday_text[6];
-    }
-    if (place.photos) {
-      innerHTML += '<br><br><img src="' + place.photos[0].getUrl(
-          {maxHeight: 100, maxWidth: 200}) + '">';
-    }
-    innerHTML += '</div>';
-    infowindow.setContent(innerHTML);
-    infowindow.open(map, marker);
-    // Make sure the marker property is cleared if the infowindow is closed.
-    infowindow.addListener('closeclick', function() {
-      infowindow.marker = null;
-    });
-  }
-});
+  });
 }
