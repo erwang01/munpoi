@@ -89,7 +89,7 @@ function initMap() {
 
   // This autocomplete is for use in the search within time entry box.
   var timeAutocomplete = new google.maps.places.Autocomplete(
-      document.getElementById('search-within-time-text'));
+      vm.searchWithinTimeText());
   // This autocomplete is for use in the geocoder entry box.
   var zoomAutocomplete = new google.maps.places.Autocomplete(
       document.getElementById('zoom-to-area-text'));
@@ -359,14 +359,14 @@ function zoomToArea() {
 function searchWithinTime() {
   // Initialize the distance matrix service.
   var distanceMatrixService = new google.maps.DistanceMatrixService;
-  var address = document.getElementById('search-within-time-text').value;
+  var address = vm.searchWithinTimeText();
   // Check to make sure the place entered isn't blank.
   if (address == '') {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = position.coords.latitude + ", " + position.coords.longitude;
         //TODO: Check is pos var is good.
-        document.getElementById('search-within-time-text').value = pos;
+        vm.searchWithinTimeText(pos);
         searchWithinTime();
       }, function() {
         window.alert('You must enter an address.');
@@ -461,7 +461,7 @@ function displayDirections(origin) {
   var directionsService = new google.maps.DirectionsService;
   // Get the destination address from the user entered value.
   var destinationAddress =
-      document.getElementById('search-within-time-text').value;
+      vm.searchWithinTimeText();
   // Get mode again from the user entered value.
   var mode = document.getElementById('mode').value;
   directionsService.route({
