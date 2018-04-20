@@ -104,17 +104,16 @@ function initMap() {
   // These are the real estate listings that will be shown to the user.
   // Normally we'd have these in a database instead.
   var locations = [
-    {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}, type: 0},
-    {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}, type: 0},
-    {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}, type: 0},
-    {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}, type: 0},
-    {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}, type: 0},
-    {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}, type: 0}
+    {title: 'Tresidder Parking Lot', location: {lat: 37.423138, lng: -122.170927}, type: 0},
+    {title: 'Dinkelspiel Auditorium', location: {lat: 37.424052, lng: -122.170148}, type: 0},
+    {title: 'Panda Express', location: {lat: 37.424514, lng:-122.171127}, type: 0},
+    {title: 'Palm Drive', location: {lat: 37.429088, lng: -122.169715}, type: 0},
+    {title: 'Meeting Spot', location: {lat: 37.424115, lng: -122.170255}, type: 0},
+    {title: 'Old Union Fountain', location: {lat: 37.425062, lng: -122.169859}, type: 0}
   ];
 
   var largeInfowindow = new google.maps.InfoWindow();
 
-  /* No use case at the present moment
   // Initialize the drawing manager.
   var drawingManager = new google.maps.drawing.DrawingManager({
     drawingMode: google.maps.drawing.OverlayType.POLYGON,
@@ -126,7 +125,7 @@ function initMap() {
       ]
     }
   });
-  */
+  
 
   // Style the markers a bit. This will be our listing marker icon.
   var icons = [];

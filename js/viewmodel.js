@@ -6,10 +6,10 @@ function AppViewModel() {
     this.enableTransit = false;
     this.enableBuildings = true;
     this.enableDriving = true;
-    this.enableWalkling = true;
+    this.enableWalking = true;
     this.enableBiking = false;
     this.searchWithinTimeText = ko.observable("Ex: Dinkelspiel Auditorium");
-    this.searchWithinTime = searchWithinTime();
+    this.searchWithinTime = searchWithinTime;
 }
 var vm = new AppViewModel()
 ko.applyBindings(vm);
