@@ -10,6 +10,11 @@ var polygon = null;
 // over the number of places that show.
 var placeMarkers = [];
 
+//Is there another way of doing this other than making it a global function?
+function changeIcon(marker, icon) {
+  marker.setIcon(icon);
+};
+
 function initMap() {
   // Create a styles array to use with the map.
   var styles = [
@@ -101,16 +106,18 @@ function initMap() {
   // Bias the searchbox to within the bounds of the map.
   searchBox.setBounds(map.getBounds());
 
+  /* Replaced by VM
   // These are the real estate listings that will be shown to the user.
   // Normally we'd have these in a database instead.
   var locations = [
     {title: 'Tresidder Parking Lot', location: {lat: 37.423138, lng: -122.170927}, type: 0},
     {title: 'Dinkelspiel Auditorium', location: {lat: 37.424052, lng: -122.170148}, type: 0},
-    {title: 'Panda Express', location: {lat: 37.424514, lng:-122.171127}, type: 0},
+    {title: 'Panda Express', location: {lat: 37.424514, lng:-122.171127}, type: 1},
     {title: 'Palm Drive', location: {lat: 37.429088, lng: -122.169715}, type: 0},
     {title: 'Meeting Spot', location: {lat: 37.424115, lng: -122.170255}, type: 0},
-    {title: 'Old Union Fountain', location: {lat: 37.425062, lng: -122.169859}, type: 0}
+    {title: 'Old Union Fountain', location: {lat: 37.425062, lng: -122.169859}, type: 2}
   ];
+  */
 
   var largeInfowindow = new google.maps.InfoWindow();
 
@@ -128,28 +135,35 @@ function initMap() {
   
 
   // Style the markers a bit. This will be our listing marker icon.
-  var icons = [];
   var defaultIcon = makeMarkerIcon('0091ff');
-  icons[0] = defaultIcon;
+  var foodIcon = makeMarkerIcon('ff9100');
+  var pictureIcon = makeMarkerIcon('91ff00');
+  vm.icons.push(defaultIcon);
+  vm.icons.push(foodIcon);
+  vm.icons.push(pictureIcon);
 
   // Create a "highlighted location" marker color for when the user
   // mouses over the marker.
-  var highlightedIcon = makeMarkerIcon('FFFF24');
+  vm.highlightedIcon = makeMarkerIcon('FFFF24');
 
   // The following group uses the location array to create an array of markers on initialize.
-  for (var i = 0; i < locations.length; i++) {
+  for (var i = 0; i < vm.locations().length; i++) {
     // Get the position from the location array.
-    var position = locations[i].location;
-    var title = locations[i].title;
-    var type = locations[i].type;
+    var location  = vm.locations()[i];
+    var position = location.location;
+    var title = location.title;
+    var type = location.type;
     // Create a marker per location, and put into markers array.
     var marker = new google.maps.Marker({
       position: position,
       title: title,
       animation: google.maps.Animation.DROP,
-      icon: icons[type],
+      icon: vm.icons()[type],
       id: i
     });
+
+    location.marker = marker;
+
     // Push the marker to our array of markers.
     markers.push(marker);
     // Create an onclick event to open the large infowindow at each marker.
@@ -159,24 +173,15 @@ function initMap() {
     // Two event listeners - one for mouseover, one for mouseout,
     // to change the colors back and forth.
     marker.addListener('mouseover', function() {
-      this.setIcon(highlightedIcon);
+      changeIcon(this, vm.highlightedIcon);
     });
     marker.addListener('mouseout', function() {
-      this.setIcon(defaultIcon);
+      changeIcon(this, vm.icons()[vm.locations()[this.id].type]);
     });
   }
-  document.getElementById('show-pois').addEventListener('click', showListings);
-
-  document.getElementById('hide-pois').addEventListener('click', function() {
-    hideMarkers(markers);
-  });
 
   document.getElementById('toggle-drawing').addEventListener('click', function() {
     toggleDrawing(drawingManager);
-  });
-
-  document.getElementById('zoom-to-area').addEventListener('click', function() {
-    zoomToArea();
   });
 
   /* Replaced by ViewModel
@@ -216,6 +221,10 @@ function initMap() {
     polygon.getPath().addListener('set_at', searchWithinPolygon);
     polygon.getPath().addListener('insert_at', searchWithinPolygon);
   });
+
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
 }
 
 
