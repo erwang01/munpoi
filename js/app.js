@@ -10,11 +10,6 @@ var polygon = null;
 // over the number of places that show.
 var placeMarkers = [];
 
-//Is there another way of doing this other than making it a global function?
-function changeIcon(marker, icon) {
-  marker.setIcon(icon);
-};
-
 function initMap() {
   // Create a styles array to use with the map.
   var styles = [
@@ -173,10 +168,10 @@ function initMap() {
     // Two event listeners - one for mouseover, one for mouseout,
     // to change the colors back and forth.
     marker.addListener('mouseover', function() {
-      changeIcon(this, vm.highlightedIcon);
+      this.setIcon(vm.highlightedIcon);
     });
     marker.addListener('mouseout', function() {
-      changeIcon(this, vm.icons()[vm.locations()[this.id].type]);
+      this.setIcon(vm.icons()[vm.locations()[this.id].type]);
     });
   }
 

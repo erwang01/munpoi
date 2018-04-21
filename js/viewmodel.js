@@ -25,11 +25,11 @@ function AppViewModel() {
     ]);
     this.highlight= function(marker) {
         marker = marker.marker;
-        changeIcon(marker, vm.highlightedIcon);
+        marker.setIcon(vm.highlightedIcon);
     };
     this.reset = function(marker) {
         marker = marker.marker;
-        changeIcon(marker, vm.icons()[vm.locations()[marker.id].type]);
+        marker.setIcon(vm.icons()[vm.locations()[marker.id].type]);
     };
     this.icons = ko.observableArray();
     this.highlightedIcon = null;
