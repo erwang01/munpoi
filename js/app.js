@@ -94,7 +94,7 @@ function initMap() {
 
   // This autocomplete is for use in the search within time entry box.
   var timeAutocomplete = new google.maps.places.Autocomplete(
-      vm.searchWithinTimeText());
+    document.getElementById('search-within-time-text'));
   // This autocomplete is for use in the geocoder entry box.
   var zoomAutocomplete = new google.maps.places.Autocomplete(
       document.getElementById('zoom-to-area-text'));
@@ -367,7 +367,7 @@ function zoomToArea() {
 function searchWithinTime() {
   // Initialize the distance matrix service.
   var distanceMatrixService = new google.maps.DistanceMatrixService;
-  var address = vm.searchWithinTimeText();
+  var address = document.getElementById('search-within-time-text').value;
   // Check to make sure the place entered isn't blank.
   if (address == '') {
     if (navigator.geolocation) {
