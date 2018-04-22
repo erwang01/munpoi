@@ -33,6 +33,17 @@ function AppViewModel() {
     };
     this.icons = ko.observableArray();
     this.highlightedIcon = null;
+    this.filter = ko.observable("");
+    this.filteredList = ko.computed(function() {
+        var filter = this.filter().toLowerCase();
+        if(!filter){
+            return this. locations();
+        } else {
+            return ko.utils.arrayFilter(this.locations(), function(location) {
+                return location.title.toLowerCase().indexOf(filter) !==-1;
+            });
+        }
+    }, this);
 }
 var vm = new AppViewModel()
 ko.applyBindings(vm);
