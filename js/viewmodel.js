@@ -37,7 +37,7 @@ function AppViewModel() {
     this.filteredList = ko.computed(function() {
         var filter = this.filter().toLowerCase();
         if(!filter){
-            return this. locations();
+            return this.locations();
         } else {
             return ko.utils.arrayFilter(this.locations(), function(location) {
                 return location.title.toLowerCase().indexOf(filter) !==-1;
@@ -47,3 +47,15 @@ function AppViewModel() {
 }
 var vm = new AppViewModel()
 ko.applyBindings(vm);
+
+var updateMap = vm.filteredList.subscribe(function(newList) {
+    hideMarkers(markers)
+    var places = newList;
+    for (var i = 0; i < markers.length; i++) {
+        for (var j = 0; j < places.length; j++) {
+            if (markers[i].title == places[j].title) {
+                markers[i].setMap(map);
+            }
+        }
+    }
+});

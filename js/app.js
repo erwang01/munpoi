@@ -95,11 +95,13 @@ function initMap() {
       document.getElementById('zoom-to-area-text'));
   // Bias the boundaries within the map for the zoom to area text.
   zoomAutocomplete.bindTo('bounds', map);
+  /* Not in scope of this project
   // Create a searchbox in order to execute a places search
   var searchBox = new google.maps.places.SearchBox(
       document.getElementById('places-search'));
   // Bias the searchbox to within the bounds of the map.
   searchBox.setBounds(map.getBounds());
+  */
 
   /* Replaced by VM
   // These are the real estate listings that will be shown to the user.
@@ -185,6 +187,7 @@ function initMap() {
   });
   */
 
+  /* Not in scope of this project
   // Listen for the event fired when the user selects a prediction from the
   // picklist and retrieve more details for that place.
   searchBox.addListener('places_changed', function() {
@@ -194,6 +197,7 @@ function initMap() {
   // Listen for the event fired when the user selects a prediction and clicks
   // "go" more details for that place.
   document.getElementById('go-places').addEventListener('click', textSearchPlaces);
+  */
 
   // Add an event listener so that the polygon is captured,  call the
   // searchWithinPolygon function. This will show the markers in the polygon,
@@ -489,6 +493,7 @@ function displayDirections(origin) {
   });
 }
 
+/* Not in scope of this project
 // This function fires when the user selects a searchbox picklist item.
 // It will do a nearby search using the selected query string or place.
 function searchBoxPlaces(searchBox) {
@@ -517,6 +522,7 @@ function textSearchPlaces() {
     }
   });
 }
+
 
 // This function creates markers for each place found in either places search.
 function createMarkersForPlaces(places) {
@@ -559,6 +565,7 @@ function createMarkersForPlaces(places) {
   }
   map.fitBounds(bounds);
 }
+*/
 
 // This is the PLACE DETAILS search - it's the most detailed so it's only
 // executed when a marker is selected, indicating the user wants more
