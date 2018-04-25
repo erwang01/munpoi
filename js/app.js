@@ -240,6 +240,16 @@ function populateInfoWindow(marker, infowindow) {
     infowindow.addListener('closeclick', function() {
       infowindow.marker = null;
     });
+    console.log(marker);
+    var request = new Request(marker.title);
+    var headers = new Headers();
+    headers.append('Authorization', "Bearer 41UjrPEsCj8oE5hKgeqtBpQgE6iAgkiL3bxhJhh4bqiauqa2aDUS3cpAfrhMbX_3oRNhn7OvYS92J7vVkd-uSC1NugGkecb9mREg80XVJx9lIFttkdCrnmGyGb3fWnYx");
+    var url = "https://api.yelp.com/v3/businesses/search?latitude="+ marker.position.lat()+"longitude="+marker.position.lng();
+    var yelp;
+    fetch(url).then(function (response){
+      console.log(response);
+    });
+
     var streetViewService = new google.maps.StreetViewService();
     var radius = 50;
     // In case the status is OK, which means the pano was found, compute the
