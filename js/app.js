@@ -261,17 +261,21 @@ function populateInfoWindow(marker, infowindow) {
     ----------End Yelp ---------*/
     /* ---- Four Square -----*/
     var init = {  method: 'GET',
-                  qs: {
-                    client_id: 'W3XOQQIAN0FQEO0SBQIC0DITGBWANF0KAYQMQE3KE4HVXKSC',
-                    client_secret: 'SG50ONTVMWSHRYUNJSQANWLCLPJBCVOVL2UXEZHJII0XGG4U',
-                    ll: '40.7243,-74.0018',
-                    query: 'coffee',
-                    v: '20180323',
-                    limit: 1
-                  }
-                }
-
-    var request = new Request('https://api.foursquare.com/v2/venues/explore', init)
+                };
+    function encodeQueryData(data) {
+      let ret = [];
+      for (let d in data)
+        ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+      return ret.join('&');
+    }
+    var request = new Request('https://api.foursquare.com/v2/venues/explore'+encodeQueryData({
+      client_id: 'W3XOQQIAN0FQEO0SBQIC0DITGBWANF0KAYQMQE3KE4HVXKSC',
+      client_secret: 'SG50ONTVMWSHRYUNJSQANWLCLPJBCVOVL2UXEZHJII0XGG4U',
+      ll: '40.7243,-74.0018',
+      query: 'coffee',
+      v: '20180323',
+      limit: 1
+    }), init)
 
     fetch(request).then(function(err, res, body) {
       console.log("Error:");
