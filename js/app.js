@@ -240,15 +240,46 @@ function populateInfoWindow(marker, infowindow) {
     infowindow.addListener('closeclick', function() {
       infowindow.marker = null;
     });
-    console.log(marker);
-    var request = new Request(marker.title);
+    /* ----------YELP --------
     var headers = new Headers();
+   // headers.append('Access-Control-Request-Method', 'GET');
+   // headers.append('Access-Control-Request-Headers', 'Authorization');
     headers.append('Authorization', "Bearer 41UjrPEsCj8oE5hKgeqtBpQgE6iAgkiL3bxhJhh4bqiauqa2aDUS3cpAfrhMbX_3oRNhn7OvYS92J7vVkd-uSC1NugGkecb9mREg80XVJx9lIFttkdCrnmGyGb3fWnYx");
-    var url = "https://api.yelp.com/v3/businesses/search?latitude="+ marker.position.lat()+"longitude="+marker.position.lng();
+    headers.append('Origin','http:205.173.47.252');
+    headers.append("Access-Control-Allow-Origin", "http://localhost:8080");
+    headers.append("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+    headers.append("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization, Origin, Accept");
+    console.log(headers);
+    var url = "https://api.yelp.com/v3/businesses/search?latitude="+ marker.position.lat()+"&longitude="+marker.position.lng();
+    //var url = "https://api.yelp.com";
     var yelp;
-    fetch(url, {headers:headers}).then(function (response){
+    var request = new Request(url, {headers: headers, mode: 'cors', method:"OPTION"});
+
+    fetch(request).then(function (response){
       console.log(response);
     });
+    ----------End Yelp ---------*/
+    /* ---- Four Square -----*/
+    var request = fetch({
+      url: 'https://api.foursquare.com/v2/venues/explore',
+      method: 'GET',
+      qs: {
+        client_id: 'W3XOQQIAN0FQEO0SBQIC0DITGBWANF0KAYQMQE3KE4HVXKSC',
+        client_secret: 'SG50ONTVMWSHRYUNJSQANWLCLPJBCVOVL2UXEZHJII0XGG4U',
+        ll: '40.7243,-74.0018',
+        query: 'coffee',
+        v: '20180323',
+        limit: 1
+      }
+    }, function(err, res, body) {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(body);
+      }
+    });
+    console.log(request);
+    /*--------End Four Square -----*/
 
     var streetViewService = new google.maps.StreetViewService();
     var radius = 50;
