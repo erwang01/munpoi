@@ -271,7 +271,7 @@ function populateInfoWindow(marker, infowindow) {
     var request = new Request(('https://api.foursquare.com/v2/venues/explore?'+encodeQueryData({
       client_id: 'W3XOQQIAN0FQEO0SBQIC0DITGBWANF0KAYQMQE3KE4HVXKSC',
       client_secret: 'SG50ONTVMWSHRYUNJSQANWLCLPJBCVOVL2UXEZHJII0XGG4U',
-      ll: marker.location.lat+","+marker.location.lng,
+      ll: marker.position.lat()+","+marker.position.lng(),
       query: marker.title,
       v: '20180323',
       limit: 1
