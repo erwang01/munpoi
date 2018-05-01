@@ -274,7 +274,12 @@ function populateInfoWindow(marker, infowindow) {
     var request = new Request('https://api.foursquare.com/v2/venues/explore', init)
 
     fetch(request).then(function(err, res, body) {
-      console.log("done");
+      console.log("Error:");
+      console.log(err);
+      console.log("Res:");
+      console.log(res);
+      console.log("Body:");
+      console.log(body);
       if (err) {
         console.error(err);
       } else {
