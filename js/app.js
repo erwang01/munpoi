@@ -271,25 +271,15 @@ function populateInfoWindow(marker, infowindow) {
     var request = new Request(('https://api.foursquare.com/v2/venues/explore?'+encodeQueryData({
       client_id: 'W3XOQQIAN0FQEO0SBQIC0DITGBWANF0KAYQMQE3KE4HVXKSC',
       client_secret: 'SG50ONTVMWSHRYUNJSQANWLCLPJBCVOVL2UXEZHJII0XGG4U',
-      ll: '40.7243,-74.0018',
-      query: 'coffee',
+      ll: marker.location.lat+","+marker.location.lng,
+      query: marker.title,
       v: '20180323',
       limit: 1
     })), init);
     console.log(request);
 
-    fetch(request).then(function(err, res, body) {
-      console.log("Error:");
-      console.log(err);
-      console.log("Res:");
-      console.log(res);
-      console.log("Body:");
-      console.log(body);
-      if (err) {
-        console.error(err);
-      } else {
-        console.log(body);
-      }
+    fetch(request).then(function(response) {
+      console.log(response);
     });
     /*--------End Four Square -----*/
 
