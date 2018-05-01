@@ -260,7 +260,7 @@ function populateInfoWindow(marker, infowindow) {
     });
     ----------End Yelp ---------*/
     /* ---- Four Square -----*/
-    var request = fetch({
+    fetch({
       url: 'https://api.foursquare.com/v2/venues/explore',
       method: 'GET',
       qs: {
@@ -272,13 +272,13 @@ function populateInfoWindow(marker, infowindow) {
         limit: 1
       }
     }, function(err, res, body) {
+      console.log("done");
       if (err) {
         console.error(err);
       } else {
         console.log(body);
       }
     });
-    console.log(request);
     /*--------End Four Square -----*/
 
     var streetViewService = new google.maps.StreetViewService();
