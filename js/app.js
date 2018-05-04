@@ -279,6 +279,8 @@ function populateInfoWindow(marker, infowindow) {
 
     fetch(request).then(function(response) {
       console.log("response:");
+      console.log(response);
+      console.log("body");
       console.log(response.body.getReader().read());
     });
     /*--------End Four Square -----*/
