@@ -281,7 +281,12 @@ function populateInfoWindow(marker, infowindow) {
       console.log("response:");
       console.log(response);
       console.log("body");
-      console.log(response.body.getReader().read());
+      function uintToString(uintArray) {
+        var encodedString = String.fromCharCode.apply(null, uintArray),
+            decodedString = decodeURIComponent(escape(atob(encodedString)));
+        return decodedString;
+      }
+      console.log(unitToString(response.body.getReader().read().result.value));
     });
     /*--------End Four Square -----*/
 
