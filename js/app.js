@@ -281,7 +281,7 @@ function populateInfoWindow(marker, infowindow) {
       console.log("response:");
       console.log(response);
       console.log("body");
-      function uintToString(uintArray) {
+      var unitToString = function(uintArray) {
         var encodedString = String.fromCharCode.apply(null, uintArray),
             decodedString = decodeURIComponent(escape(atob(encodedString)));
         return decodedString;
