@@ -276,10 +276,10 @@ function populateInfoWindow(marker, infowindow) {
       v: '20180323',
       limit: 1
     })), init);
-    console.log(request);
 
     fetch(request).then(function(response) {
-      console.log(response);
+      console.log("response:");
+      console.log(response.json());
     });
     /*--------End Four Square -----*/
 
