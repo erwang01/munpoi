@@ -280,13 +280,15 @@ function populateInfoWindow(marker, infowindow) {
     fetch(request).then(function(response) {
       console.log("response:");
       console.log(response);
-      console.log("body");
+      /*console.log("body");
       var unitToString = function(uintArray) {
         var encodedString = String.fromCharCode.apply(null, uintArray),
             decodedString = decodeURIComponent(escape(atob(encodedString)));
         return decodedString;
       }
       console.log(unitToString(response.body.getReader().read().result.value));
+    */
+      console.log(response.json());
     });
     /*--------End Four Square -----*/
 
