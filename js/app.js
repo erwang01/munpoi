@@ -278,8 +278,6 @@ function populateInfoWindow(marker, infowindow) {
     })), init);
 
     fetch(request).then(function(response) {
-      console.log("response:");
-      console.log(response);
       /*console.log("body");
       var unitToString = function(uintArray) {
         var encodedString = String.fromCharCode.apply(null, uintArray),
@@ -288,7 +286,11 @@ function populateInfoWindow(marker, infowindow) {
       }
       console.log(unitToString(response.body.getReader().read().result.value));
     */
-      console.log(response.json());
+      var data;
+      response.json().then(function(content) {
+        data = content.response;
+      });
+      console.log(data);
     });
     /*--------End Four Square -----*/
 
