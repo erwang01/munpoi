@@ -310,7 +310,7 @@ function populateInfoWindow(marker, infowindow) {
         console.log(data);
         var item = data.groups[0].items[0];
         var category = item.venue.categories[0];
-        if (item.flags != null && item.flags.exactMatch == true) {
+        if (item.flags != null && item.flags.exactMatch == true && category != undefined) {
           console.log(category);
           infowindow.setContent("<div>" + marker.title + "</div>" + "<div>Category: " + category.name+"</div>" )
         }
