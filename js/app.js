@@ -278,19 +278,11 @@ function populateInfoWindow(marker, infowindow) {
     })), init);
 
     fetch(request).then(function(response) {
-      /*console.log("body");
-      var unitToString = function(uintArray) {
-        var encodedString = String.fromCharCode.apply(null, uintArray),
-            decodedString = decodeURIComponent(escape(atob(encodedString)));
-        return decodedString;
-      }
-      console.log(unitToString(response.body.getReader().read().result.value));
-    */
       var data;
       response.json().then(function(content) {
         data = content.response;
+        console.log(data);
       });
-      console.log(data);
     });
     /*--------End Four Square -----*/
 
