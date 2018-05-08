@@ -9,6 +9,7 @@ Displays the POIs for the Stanford Model United Nations Conference.
 ## Built With:
 - Knockout.js
 - Google Maps API
+- Foursquare API
 
 ## Inspired by:
 - Stanford Model United Nations Conference
