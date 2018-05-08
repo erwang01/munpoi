@@ -259,35 +259,7 @@ function populateInfoWindow(marker, infowindow) {
       console.log(response);
     });
     ----------End Yelp ---------*/
-    /* ---- Four Square -----*/
-    var init = {  method: 'GET',
-                };
-    function encodeQueryData(data) {
-      let ret = [];
-      for (let d in data)
-        ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-      return ret.join('&');
-    }
-    var request = new Request(('https://api.foursquare.com/v2/venues/explore?'+encodeQueryData({
-      client_id: 'W3XOQQIAN0FQEO0SBQIC0DITGBWANF0KAYQMQE3KE4HVXKSC',
-      client_secret: 'SG50ONTVMWSHRYUNJSQANWLCLPJBCVOVL2UXEZHJII0XGG4U',
-      ll: marker.position.lat()+","+marker.position.lng(),
-      query: marker.title,
-      v: '20180323',
-      limit: 1
-    })), init);
-
-    fetch(request).then(function(response) {
-      var data;
-      response.json().then(function(content) {
-        data = content.response;
-        console.log(data);
-        var category = data.groups[0].items[0].categories[0]
-        console.log(category);
-        infowindow.setContent("<div>" + marker.title + "</div>" + "<div>Category: " + category.name+"</div>" )
-      });
-    });
-    /*--------End Four Square -----*/
+   
 
     var streetViewService = new google.maps.StreetViewService();
     var radius = 50;
@@ -314,9 +286,44 @@ function populateInfoWindow(marker, infowindow) {
           '<div>No Street View Found</div>');
       }
     }
-    // Use streetview service to get the closest streetview image within
-    // 50 meters of the markers position
-    streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
+    /* ---- Four Square -----*/
+    var init = {  method: 'GET'};
+    function encodeQueryData(data) {
+      let ret = [];
+      for (let d in data)
+        ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+      return ret.join('&');
+    }
+    var request = new Request(('https://api.foursquare.com/v2/venues/explore?'+encodeQueryData({
+      client_id: 'W3XOQQIAN0FQEO0SBQIC0DITGBWANF0KAYQMQE3KE4HVXKSC',
+      client_secret: 'SG50ONTVMWSHRYUNJSQANWLCLPJBCVOVL2UXEZHJII0XGG4U',
+      ll: marker.position.lat()+","+marker.position.lng(),
+      query: marker.title,
+      v: '20180323',
+      limit: 1
+    })), init);
+
+    fetch(request).then(function(response) {
+      var data;
+      response.json().then(function(content) {
+        data = content.response;
+        console.log(data);
+        var item = data.groups[0].items[0];
+        var category = item.venue.categories[0];
+        if (item.flags != null && item.flags.exactMatch == true) {
+          console.log(category);
+          infowindow.setContent("<div>" + marker.title + "</div>" + "<div>Category: " + category.name+"</div>" )
+        }
+        else {
+          console.log("not an exact match");
+          // Use streetview service to get the closest streetview image within
+          // 50 meters of the markers position
+          streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
+
+        }
+      }
+    });
+    /*--------End Four Square -----*/
     // Open the infowindow on the correct marker.
     infowindow.open(map, marker);
   }
