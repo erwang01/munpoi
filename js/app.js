@@ -321,7 +321,7 @@ function populateInfoWindow(marker, infowindow) {
           streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
 
         }
-      }
+      });
     });
     /*--------End Four Square -----*/
     // Open the infowindow on the correct marker.
