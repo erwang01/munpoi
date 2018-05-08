@@ -282,6 +282,9 @@ function populateInfoWindow(marker, infowindow) {
       response.json().then(function(content) {
         data = content.response;
         console.log(data);
+        var category = data.groups[0].items[0].categories[0]
+        console.log(category);
+        infowindow.setContent("<div>" + marker.title + "</div>" + "<div>Category: " + category.name+"</div>" )
       });
     });
     /*--------End Four Square -----*/
